@@ -2,23 +2,21 @@
 
 
 
-# [Project Name] 🎯
+# A-League 🎯
 
 
 ## Basic Details
-### Team Name: [Name]
+### Team Name: A-League
 
 
 ### Team Members
-- Team Lead: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Member 1: Akshay S.M - CE Perumon
+- Member 2: Abhijith S - CE Perumon
 
 ### Project Description
-[2-3 lines about what your project does]
+There may be situations when you were lazy and you wished there were some sort of tools to help you manage your responsibilities while being lazy. So, we introduce menakkedu- the *absolute* useless tool suite
 
 ### The Problem (that doesn't exist)
-[What ridiculous problem are you solving?]
 
 ### The Solution (that nobody asked for)
 [How are you solving it? Keep it fun!]
