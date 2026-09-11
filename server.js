@@ -4,15 +4,16 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 
-// Load environment variables from .env or function.env
+// Load environment variables
 if (fs.existsSync('.env')) {
-dotenv.config({ path: '.env' });
+    dotenv.config({ path: '.env' });
 }
 
 if (fs.existsSync('function.env')) {
-dotenv.config({ path: 'function.env' });
+    dotenv.config({ path: 'function.env' });
 }
 
+// Server setup
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -22,147 +23,134 @@ const __dirname = path.dirname(__filename);
 app.use(express.json());
 app.use(express.static(__dirname));
 
+// Gemini models
+const candidateModels = [
+    'gemini-3.5-flash',
+    'gemini-2.5-flash',
+    'gemini-2.0-flash',
+    'gemini-1.5-flash-latest'
+];
+
 // ============================================================
 // EXCUSE GENERATOR
 // ============================================================
 
 app.post('/api/generate-excuse', async (req, res) => {
-try {
-const apiKey = (process.env.GEMINI_API_KEY || '').trim();
+    try {
+        const apiKey = (process.env.GEMINI_API_KEY || '').trim();
 
-```
-// Error handling: Missing or empty GEMINI_API_KEY
-if (!apiKey) {
-  return res.status(400).json({
-    error:
-      'GEMINI_API_KEY is missing or empty in your environment file. Please set GEMINI_API_KEY in .env or function.env!'
-  });
-}
+        if (!apiKey) {
+            return res.status(400).json({
+                error: 'GEMINI_API_KEY is missing or empty in function.env.'
+            });
+        }
 
-const situation = req.body.situation || req.body.prompt;
+        const situation = req.body.situation || req.body.prompt;
 
-// Error handling: Missing or empty situation
-if (
-  !situation ||
-  typeof situation !== 'string' ||
-  situation.trim() === ''
-) {
-  return res.status(400).json({
-    error: 'Please provide a valid situation for the excuse.'
-  });
-}
+        if (
+            !situation ||
+            typeof situation !== 'string' ||
+            situation.trim() === ''
+        ) {
+            return res.status(400).json({
+                error: 'Please provide a valid situation for the excuse.'
+            });
+        }
 
-const trimmedSituation = situation.trim();
+        const trimmedSituation = situation.trim();
 
-// Prompt for excuse generation
-const promptText = `You are an excuse generator.
-```
+        const promptText =
+            'You are an excuse generator.\n\n' +
+            'The user will describe a situation where they need an excuse.\n\n' +
+            'Generate ONE excuse that is directly related to the situation provided by the user.\n\n' +
+            'Rules:\n' +
+            '- Understand what happened in the user situation.\n' +
+            '- Generate an excuse that specifically addresses that situation.\n' +
+            '- Do not introduce a completely unrelated event.\n' +
+            '- Make the excuse natural and conversational.\n' +
+            '- Keep it reasonably believable.\n' +
+            '- Keep it concise.\n' +
+            '- Do not explain your reasoning.\n' +
+            '- Return only the excuse.\n\n' +
+            'User situation:\n' +
+            trimmedSituation;
 
-The user will describe a situation where they need an excuse.
+        let responseText = null;
+        let lastError = null;
 
-Generate ONE excuse that is directly related to the situation provided by the user.
+        for (const modelName of candidateModels) {
+            try {
+                const response = await fetch(
+                    'https://generativelanguage.googleapis.com/v1beta/models/' +
+                    modelName +
+                    ':generateContent?key=' +
+                    encodeURIComponent(apiKey),
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            contents: [
+                                {
+                                    parts: [
+                                        {
+                                            text: promptText
+                                        }
+                                    ]
+                                }
+                            ]
+                        })
+                    }
+                );
 
-Rules:
+                const data = await response.json();
 
-* Understand what happened in the user's situation.
-* Generate an excuse that specifically addresses that situation.
-* Do not introduce a completely unrelated event.
-* Make the excuse natural and conversational.
-* Keep it reasonably believable.
-* Keep it concise.
-* Do not explain your reasoning.
-* Return only the excuse.
+                if (
+                    response.ok &&
+                    data.candidates &&
+                    data.candidates[0] &&
+                    data.candidates[0].content &&
+                    data.candidates[0].content.parts &&
+                    data.candidates[0].content.parts[0] &&
+                    data.candidates[0].content.parts[0].text
+                ) {
+                    responseText =
+                        data.candidates[0].content.parts[0].text;
 
-User's situation:
-${trimmedSituation}`;
-
-```
-// Currently supported Gemini model candidates
-const candidateModels = [
-  'gemini-3.5-flash',
-  'gemini-2.5-flash',
-  'gemini-2.0-flash',
-  'gemini-1.5-flash-latest'
-];
-
-let responseText = null;
-let lastError = null;
-
-// Try each model until one works
-for (const modelName of candidateModels) {
-  try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${encodeURIComponent(apiKey)}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          contents: [
-            {
-              parts: [
-                {
-                  text: promptText
+                    break;
                 }
-              ]
+
+                lastError =
+                    (data.error && data.error.message) ||
+                    'HTTP ' + response.status + ' for ' + modelName;
+
+            } catch (error) {
+                lastError = error.message;
             }
-          ]
-        })
-      }
-    );
+        }
 
-    const data = await response.json();
+        if (!responseText || responseText.trim() === '') {
+            return res.status(500).json({
+                error:
+                    lastError ||
+                    'Received an empty response from Gemini.'
+            });
+        }
 
-    if (
-      response.ok &&
-      data.candidates?.[0]?.content?.parts?.[0]?.text
-    ) {
-      responseText =
-        data.candidates[0].content.parts[0].text;
+        return res.json({
+            excuse: responseText.trim()
+        });
 
-      break;
-    } else {
-      lastError =
-        data.error?.message ||
-        `HTTP ${response.status} for ${modelName}`;
+    } catch (error) {
+        console.error('Error in excuse generator:', error);
+
+        return res.status(500).json({
+            error:
+                error.message ||
+                'An error occurred while generating the excuse.'
+        });
     }
-
-  } catch (err) {
-    lastError = err.message;
-  }
-}
-
-// Error handling: Unexpected AI response / API error
-if (!responseText || responseText.trim() === '') {
-  return res.status(500).json({
-    error:
-      lastError ||
-      'Received an empty or invalid response from the Gemini API.'
-  });
-}
-
-// Return exact response format
-res.json({
-  excuse: responseText.trim()
-});
-```
-
-} catch (error) {
-console.error(
-'Error in /api/generate-excuse:',
-error
-);
-
-```
-res.status(500).json({
-  error:
-    error.message ||
-    'An error occurred while generating the excuse using Gemini API.'
-});
-```
-
-}
 });
 
 // ============================================================
@@ -170,141 +158,120 @@ res.status(500).json({
 // ============================================================
 
 app.post('/api/dehumanise', async (req, res) => {
-try {
-const apiKey = (process.env.GEMINI_API_KEY || '').trim();
+    try {
+        const apiKey = (process.env.GEMINI_API_KEY || '').trim();
 
-```
-// Error handling: Missing or empty GEMINI_API_KEY
-if (!apiKey) {
-  return res.status(400).json({
-    error:
-      'GEMINI_API_KEY is missing or empty in your environment file.'
-  });
-}
+        if (!apiKey) {
+            return res.status(400).json({
+                error: 'GEMINI_API_KEY is missing or empty in function.env.'
+            });
+        }
 
-const text = req.body.text;
+        const text = req.body.text;
 
-// Error handling: Missing or empty text
-if (
-  !text ||
-  typeof text !== 'string' ||
-  text.trim() === ''
-) {
-  return res.status(400).json({
-    error: 'Please provide some text to dehumanise.'
-  });
-}
+        if (
+            !text ||
+            typeof text !== 'string' ||
+            text.trim() === ''
+        ) {
+            return res.status(400).json({
+                error: 'Please provide some text to dehumanise.'
+            });
+        }
 
-const trimmedText = text.trim();
+        const trimmedText = text.trim();
 
-// Prompt for text dehumanisation
-const promptText = `You are a text dehumaniser.
-```
+        const promptText =
+            'You are a text dehumaniser.\n\n' +
+            'Rewrite the user text so that it sounds extremely cold, robotic, bureaucratic, emotionally detached, and impersonal.\n\n' +
+            'Rules:\n' +
+            '- Preserve the original meaning.\n' +
+            '- Do not add completely new information.\n' +
+            '- Remove emotional and personal language where possible.\n' +
+            '- Use formal, sterile, bureaucratic wording.\n' +
+            '- Make the result sound like it was written by an automated administrative system.\n' +
+            '- Keep the rewritten text concise.\n' +
+            '- Do not explain what you changed.\n' +
+            '- Return ONLY the rewritten text.\n\n' +
+            'User text:\n' +
+            trimmedText;
 
-Rewrite the user's text so that it sounds extremely cold, robotic,
-bureaucratic, emotionally detached, and impersonal.
+        let responseText = null;
+        let lastError = null;
 
-Rules:
+        for (const modelName of candidateModels) {
+            try {
+                const response = await fetch(
+                    'https://generativelanguage.googleapis.com/v1beta/models/' +
+                    modelName +
+                    ':generateContent?key=' +
+                    encodeURIComponent(apiKey),
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            contents: [
+                                {
+                                    parts: [
+                                        {
+                                            text: promptText
+                                        }
+                                    ]
+                                }
+                            ]
+                        })
+                    }
+                );
 
-* Preserve the original meaning.
-* Do not add completely new information.
-* Remove emotional and personal language where possible.
-* Use formal, sterile, bureaucratic wording.
-* Make the result sound like it was written by an automated administrative system.
-* Keep the rewritten text concise.
-* Do not explain what you changed.
-* Return ONLY the rewritten text.
+                const data = await response.json();
 
-User's text:
-${trimmedText}`;
+                if (
+                    response.ok &&
+                    data.candidates &&
+                    data.candidates[0] &&
+                    data.candidates[0].content &&
+                    data.candidates[0].content.parts &&
+                    data.candidates[0].content.parts[0] &&
+                    data.candidates[0].content.parts[0].text
+                ) {
+                    responseText =
+                        data.candidates[0].content.parts[0].text;
 
-```
-// Use the same Gemini model fallback system
-const candidateModels = [
-  'gemini-3.5-flash',
-  'gemini-2.5-flash',
-  'gemini-2.0-flash',
-  'gemini-1.5-flash-latest'
-];
-
-let responseText = null;
-let lastError = null;
-
-// Try each model until one works
-for (const modelName of candidateModels) {
-  try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${encodeURIComponent(apiKey)}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          contents: [
-            {
-              parts: [
-                {
-                  text: promptText
+                    break;
                 }
-              ]
+
+                lastError =
+                    (data.error && data.error.message) ||
+                    'HTTP ' + response.status + ' for ' + modelName;
+
+            } catch (error) {
+                lastError = error.message;
             }
-          ]
-        })
-      }
-    );
+        }
 
-    const data = await response.json();
+        if (!responseText || responseText.trim() === '') {
+            return res.status(500).json({
+                error:
+                    lastError ||
+                    'Received an empty response from Gemini.'
+            });
+        }
 
-    if (
-      response.ok &&
-      data.candidates?.[0]?.content?.parts?.[0]?.text
-    ) {
-      responseText =
-        data.candidates[0].content.parts[0].text;
+        return res.json({
+            result: responseText.trim()
+        });
 
-      break;
-    } else {
-      lastError =
-        data.error?.message ||
-        `HTTP ${response.status} for ${modelName}`;
+    } catch (error) {
+        console.error('Error in text dehumaniser:', error);
+
+        return res.status(500).json({
+            error:
+                error.message ||
+                'An error occurred while dehumanising the text.'
+        });
     }
-
-  } catch (err) {
-    lastError = err.message;
-  }
-}
-
-// Error handling: Unexpected AI response / API error
-if (!responseText || responseText.trim() === '') {
-  return res.status(500).json({
-    error:
-      lastError ||
-      'Received an empty or invalid response from the Gemini API.'
-  });
-}
-
-// Return the dehumanised text
-res.json({
-  result: responseText.trim()
-});
-```
-
-} catch (error) {
-console.error(
-'Error in /api/dehumanise:',
-error
-);
-
-```
-res.status(500).json({
-  error:
-    error.message ||
-    'An error occurred while dehumanising the text using Gemini API.'
-});
-```
-
-}
 });
 
 // ============================================================
@@ -312,7 +279,7 @@ res.status(500).json({
 // ============================================================
 
 app.listen(PORT, () => {
-console.log(
-`🚀 UselessSuite server running at http://localhost:${PORT}`
-);
+    console.log(
+        'UselessSuite server running at http://localhost:' + PORT
+    );
 });
