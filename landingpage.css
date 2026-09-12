@@ -1,4 +1,0 @@
-.reference-canvas {
-    width: min(100vw, calc(100vh * 1671 / 941));
-    aspect-ratio: 1671 / 941;
-}
