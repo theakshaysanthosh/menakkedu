@@ -601,4 +601,5 @@ app.listen(PORT, () => {
     console.log(
         'UselessSuite server running at http://localhost:' + PORT
     );
+    export default app;
 });
