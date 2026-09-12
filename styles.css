@@ -1,0 +1,506 @@
+/* ============================================================
+   GLOBAL
+   ============================================================ */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        #f4f5f7;
+
+    color:
+        #202124;
+
+    min-height:
+        100vh;
+}
+
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.site-header {
+
+    background:
+        #111827;
+
+    color:
+        white;
+
+    padding:
+        50px 20px;
+
+    text-align:
+        center;
+}
+
+
+.header-content {
+
+    max-width:
+        900px;
+
+    margin:
+        0 auto;
+
+}
+
+
+.site-header h1 {
+
+    font-size:
+        48px;
+
+    font-weight:
+        800;
+
+    margin-bottom:
+        12px;
+
+}
+
+
+.site-header p {
+
+    font-size:
+        18px;
+
+    color:
+        #d1d5db;
+
+}
+
+
+
+/* ============================================================
+   MAIN CONTAINER
+   ============================================================ */
+
+.container {
+
+    width:
+        90%;
+
+    max-width:
+        900px;
+
+    margin:
+        40px auto 60px;
+
+}
+
+
+
+/* ============================================================
+   TOOL CARDS
+   ============================================================ */
+
+.tool-card {
+
+    background:
+        white;
+
+    border:
+        1px solid #e5e7eb;
+
+    border-radius:
+        16px;
+
+    padding:
+        30px;
+
+    margin-bottom:
+        30px;
+
+    box-shadow:
+        0 8px 25px rgba(
+            0,
+            0,
+            0,
+            0.06
+        );
+
+}
+
+
+.tool-card:hover {
+
+    box-shadow:
+        0 12px 30px rgba(
+            0,
+            0,
+            0,
+            0.09
+        );
+
+}
+
+
+
+/* ============================================================
+   TOOL ICON
+   ============================================================ */
+
+.tool-icon {
+
+    font-size:
+        38px;
+
+    margin-bottom:
+        8px;
+
+}
+
+
+
+/* ============================================================
+   TOOL TITLES
+   ============================================================ */
+
+.tool-card h2 {
+
+    font-size:
+        28px;
+
+    margin-bottom:
+        8px;
+
+    color:
+        #111827;
+
+}
+
+
+.tool-description {
+
+    color:
+        #6b7280;
+
+    font-size:
+        16px;
+
+    margin-bottom:
+        20px;
+
+}
+
+
+
+/* ============================================================
+   TEXTAREAS
+   ============================================================ */
+
+textarea {
+
+    width:
+        100%;
+
+    min-height:
+        140px;
+
+    resize:
+        vertical;
+
+    padding:
+        16px;
+
+    border:
+        1px solid #d1d5db;
+
+    border-radius:
+        10px;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size:
+        16px;
+
+    line-height:
+        1.5;
+
+    color:
+        #111827;
+
+    background:
+        #ffffff;
+
+    outline:
+        none;
+
+    margin-bottom:
+        14px;
+
+}
+
+
+textarea:focus {
+
+    border-color:
+        #6366f1;
+
+    box-shadow:
+        0 0 0 3px rgba(
+            99,
+            102,
+            241,
+            0.12
+        );
+
+}
+
+
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.tool-button {
+
+    width:
+        100%;
+
+    border:
+        none;
+
+    border-radius:
+        10px;
+
+    padding:
+        15px 20px;
+
+    background:
+        #6366f1;
+
+    color:
+        white;
+
+    font-size:
+        16px;
+
+    font-weight:
+        700;
+
+    cursor:
+        pointer;
+
+    transition:
+        0.2s ease;
+
+}
+
+
+.tool-button:hover {
+
+    background:
+        #4f46e5;
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+.tool-button:active {
+
+    transform:
+        translateY(0);
+
+}
+
+
+.tool-button:disabled {
+
+    opacity:
+        0.65;
+
+    cursor:
+        not-allowed;
+
+    transform:
+        none;
+
+}
+
+
+
+/* ============================================================
+   RESULT AREA
+   ============================================================ */
+
+.result-area {
+
+    margin-top:
+        18px;
+
+    padding:
+        18px;
+
+    min-height:
+        70px;
+
+    background:
+        #f8fafc;
+
+    border:
+        1px solid #e2e8f0;
+
+    border-radius:
+        10px;
+
+    color:
+        #374151;
+
+    line-height:
+        1.6;
+
+}
+
+
+.result-area p {
+
+    white-space:
+        pre-wrap;
+
+    word-wrap:
+        break-word;
+
+}
+
+
+
+/* ============================================================
+   ERROR
+   ============================================================ */
+
+.error {
+
+    color:
+        #dc2626;
+
+}
+
+
+
+/* ============================================================
+   OVERTHINKER
+   ============================================================ */
+
+.overthinker-card {
+
+    border:
+        2px solid #ddd6fe;
+
+}
+
+
+.overthinker-card .tool-icon {
+
+    font-size:
+        42px;
+
+}
+
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.site-footer {
+
+    background:
+        #111827;
+
+    color:
+        #d1d5db;
+
+    text-align:
+        center;
+
+    padding:
+        30px 20px;
+
+    font-size:
+        14px;
+
+}
+
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (
+    max-width: 600px
+) {
+
+    .site-header {
+
+        padding:
+            35px 20px;
+
+    }
+
+
+    .site-header h1 {
+
+        font-size:
+            36px;
+
+    }
+
+
+    .site-header p {
+
+        font-size:
+            16px;
+
+    }
+
+
+    .container {
+
+        width:
+            94%;
+
+        margin-top:
+            25px;
+
+    }
+
+
+    .tool-card {
+
+        padding:
+            22px;
+
+        margin-bottom:
+            22px;
+
+    }
+
+
+    .tool-card h2 {
+
+        font-size:
+            24px;
+
+    }
+
+}
