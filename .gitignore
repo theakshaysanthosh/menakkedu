@@ -1,7 +1,0 @@
-# Environment & API keys
-.env
-function.env
-
-# Node dependencies
-node_modules/
-npm-debug.log
