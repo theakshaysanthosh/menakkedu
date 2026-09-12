@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>menakked — Useless Tool Suite</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #f7f3e7;
+    }
+
+    .landing-page {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #f7f3e7;
+    }
+
+    /*
+      The reference artwork is used as the visual base so the desktop
+      landing page remains visually identical to the supplied design.
+      Keep landing-reference.png in the same folder as this file.
+    */
+    .landing-art {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /*
+      Invisible clickable areas sit precisely over the three buttons.
+      The artwork itself remains unchanged.
+    */
+    .button-link {
+      position: absolute;
+      display: block;
+      z-index: 10;
+      border: 0;
+      outline: none;
+      background: transparent;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .button-link:focus-visible {
+      outline: 3px solid #111827;
+      outline-offset: 4px;
+    }
+
+    /* Coordinates are based on the 1671 × 941 reference image. */
+
+    /* Discover the toolbox */
+    .discover-link {
+      left: 39.35%;
+      top: 61.45%;
+      width: 6.55%;
+      height: 18.65%;
+    }
+
+    /* Contact Us */
+    .contact-link {
+      left: 47.05%;
+      top: 64.15%;
+      width: 12.85%;
+      height: 6.45%;
+    }
+
+    /* About Us */
+    .about-link {
+      left: 47.05%;
+      top: 71.95%;
+      width: 12.85%;
+      height: 6.45%;
+    }
+
+    /*
+      For smaller screens the reference scales proportionally while
+      preserving the same composition.
+    */
+    @media (max-aspect-ratio: 1/1) {
+      .landing-art {
+        object-fit: contain;
+      }
+
+      .discover-link {
+        left: 39.2%;
+        top: 61.35%;
+        width: 6.7%;
+        height: 18.8%;
+      }
+
+      .contact-link {
+        left: 47%;
+        top: 64%;
+        width: 13%;
+        height: 6.5%;
+      }
+
+      .about-link {
+        left: 47%;
+        top: 71.8%;
+        width: 13%;
+        height: 6.5%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="landing-page" aria-label="menakked Useless Tool Suite">
+
+    <!--
+      Put landing-reference.png beside landingpage.html.
+      This is the supplied desktop landing-page artwork.
+    -->
+    <img
+      class="landing-art"
+      src="landing-reference.png"
+      alt="menakked Useless Tool Suite landing page"
+      draggable="false"
+    >
+
+    <!-- Discover the toolbox → index.html -->
+    <a
+      class="button-link discover-link"
+      href="index.html"
+      aria-label="Discover the toolbox"
+      title="Discover the toolbox"
+    ></a>
+
+    <!-- Contact Us → contact.html -->
+    <a
+      class="button-link contact-link"
+      href="contact.html"
+      aria-label="Contact Us"
+      title="Contact Us"
+    ></a>
+
+    <!-- About Us → about.html -->
+    <a
+      class="button-link about-link"
+      href="about.html"
+      aria-label="About Us"
+      title="About Us"
+    ></a>
+
+  </main>
+</body>
+</html>

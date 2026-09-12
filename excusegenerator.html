@@ -8,18 +8,36 @@
 </head>
 <body>
 
-  <div class="container">
-    <h1>🎭 Excuse Generator</h1>
-    <p class="subtitle">Tell us what happened. We'll come up with an excuse.</p>
-
-    <div class="form-group">
-      <textarea id="userInput" placeholder="What happened?"></textarea>
+  <header class="site-header">
+    <div class="header-content">
+      <h1>🎭 Excuse Generator</h1>
+      <p>Tell us what happened. We'll come up with an excuse.</p>
     </div>
+  </header>
 
-    <button id="generateBtn">Generate Excuse</button>
+  <main class="container">
+    <section class="tool-card">
 
-    <div id="excuseOutput" class="excuse-output"></div>
-  </div>
+      <textarea
+        id="excuseInput"
+        placeholder="What happened?"
+        rows="6"
+      ></textarea>
+
+      <button id="excuseButton" class="tool-button">
+        Generate Excuse
+      </button>
+
+      <div id="excuseResult" class="result-area">
+        <p>Your perfectly questionable excuse will appear here.</p>
+      </div>
+
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p><a href="index.html" style="color:#d1d5db;">&larr; Back to UselessSuite</a></p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
