@@ -2,98 +2,41 @@
 
 
 
-# [Project Name] 🎯
+# [Menakked: The Useless Tool Suite] 🎯
 
 
 ## Basic Details
-### Team Name: [Name]
+### Team Name: [A-League]
 
 
 ### Team Members
-- Team Lead: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Member 1: [Akshay S.M] - [CE Perumon]
+- Member 2: [Abhijith S] - [CE Perumon]
 
 ### Project Description
-[2-3 lines about what your project does]
+Menakked is a compilation of useless and funny tools that serves no specific purpose.
+
 
 ### The Problem (that doesn't exist)
-[What ridiculous problem are you solving?]
+Tool suites are designed to be useful. But should something be useful for simply existing?
 
 ### The Solution (that nobody asked for)
-[How are you solving it? Keep it fun!]
+We kept our commitment to the name "Useless Projects" and designed a completely useless tool suite ( not completely useless as usefulness is subjective )
 
-## Technical Details
-### Technologies/Components Used
-For Software:
-- [Languages used]
-- [Frameworks used]
-- [Libraries used]
-- [Tools used]
-
-For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
-
-### Implementation
-For Software:
-# Installation
-[commands]
-
-# Run
-[commands]
-
-### Project Documentation
-For Software:
 
 # Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
+<img width="1920" height="3351" alt="final" src="https://github.com/user-attachments/assets/ee854b03-f33a-421c-83b7-c359dcdd1827" />
+*The final version of the tool suite*
+<img width="1920" height="913" alt="index" src="https://github.com/user-attachments/assets/f49d4e7c-88a1-4c8c-97b3-0b7760bdc9f7" />
+*The landing page*
+<img width="1917" height="1015" alt="code" src="https://github.com/user-attachments/assets/c121b63e-2d89-4c64-a37f-a82865c84e3b" />
+*Snapshot of the code during early stage*
+<img width="1917" height="902" alt="stage 1" src="https://github.com/user-attachments/assets/f2a36e33-becd-4ffd-a6e6-67d9fb273ea6" />
+*Testing initial version on localhost*
 
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
 
-# Diagrams
-![Workflow](Add your workflow/architecture diagram here)
-*Add caption explaining your workflow*
 
-For Hardware:
-
-# Schematic & Circuit
-![Circuit](Add your circuit diagram here)
-*Add caption explaining connections*
-
-![Schematic](Add your schematic diagram here)
-*Add caption explaining the schematic*
-
-# Build Photos
-![Components](Add photo of your components here)
-*List out all components shown*
-
-![Build](Add photos of build process here)
-*Explain the build steps*
-
-![Final](Add photo of final product here)
-*Explain the final build*
-
-### Project Demo
-# Video
-[Add your demo video link here]
-*Explain what the video demonstrates*
-
-# Additional Demos
-[Add any extra demo materials/links]
-
-## Team Contributions
-- [Name 1]: [Specific contributions]
-- [Name 2]: [Specific contributions]
-- [Name 3]: [Specific contributions]
-
----
 Made with ❤️ at TinkerHub Useless Projects 
 
 ![Static Badge](https://img.shields.io/badge/TinkerHub-24?color=%23000000&link=https%3A%2F%2Fwww.tinkerhub.org%2F)
