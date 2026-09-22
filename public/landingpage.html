@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>UselessSuite</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="header-content">
+            <h1>Useless Suite</h1>
+            <p>Artificial intelligence for problems nobody asked to solve.</p>
+        </div>
+    </header>
+
+
+    <main class="container">
+
+        <!-- =====================================================
+             EXCUSE GENERATOR
+             ===================================================== -->
+
+        <section class="tool-card">
+
+            <div class="tool-icon">🎭</div>
+            <h2>Excuse Generator</h2>
+
+            <p class="tool-description">
+                Give us a situation. We'll give you an excuse.
+            </p>
+
+            <textarea
+                id="excuseInput"
+                placeholder="Why were you late?"
+                rows="6"
+            ></textarea>
+
+            <button id="excuseButton" class="tool-button">
+                Generate Excuse
+            </button>
+
+            <div id="excuseResult" class="result-area">
+                <p>Your perfectly questionable excuse will appear here.</p>
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             TEXT DEHUMANISER
+             ===================================================== -->
+
+        <section class="tool-card">
+
+            <div class="tool-icon">🤖</div>
+            <h2>Text Dehumaniser</h2>
+
+            <p class="tool-description">
+                Give us some human writing. We'll remove the humanity.
+            </p>
+
+            <textarea
+                id="dehumaniserInput"
+                placeholder="Enter your text..."
+                rows="8"
+            ></textarea>
+
+            <button id="dehumaniseButton" class="tool-button">
+                Dehumanise
+            </button>
+
+            <div id="dehumaniserResult" class="result-area">
+                <p>Your dehumanised text will appear here.</p>
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             PARAGRAPH INFLATOR / EXAGGERATOR
+             ===================================================== -->
+
+        <section class="tool-card">
+
+            <div class="tool-icon">🎈</div>
+            <h2>Paragraph Inflator</h2>
+
+            <p class="tool-description">
+                Give us a sentence. We'll turn it into a thesis.
+            </p>
+
+            <textarea
+                id="exaggeratorInput"
+                placeholder="I was late because I missed the bus."
+                rows="6"
+            ></textarea>
+
+            <button id="exaggerateButton" class="tool-button">
+                Exaggerate
+            </button>
+
+            <div id="exaggeratorResult" class="result-area">
+                <p>
+                    Your unnecessarily elaborate explanation will appear here.
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             OVERTHINKER
+             ===================================================== -->
+
+        <section class="tool-card overthinker-card">
+
+            <div class="tool-icon">🌀</div>
+            <h2>Overthinker</h2>
+
+            <p class="tool-description">
+                Give us a simple decision. We'll turn it into an existential crisis.
+            </p>
+
+            <textarea
+                id="overthinkInput"
+                placeholder="Should I text back right away or wait a bit?"
+                rows="6"
+            ></textarea>
+
+            <button id="overthinkButton" class="tool-button">
+                Overthink It
+            </button>
+
+            <div id="overthinkResult" class="result-area">
+                <p>Your needlessly agonized analysis will appear here.</p>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer class="site-footer">
+        <p>UselessSuite © 2026 — Making AI do things it probably shouldn't.</p>
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>

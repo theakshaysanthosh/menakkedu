@@ -21,7 +21,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use(express.json());
-app.use(express.static(__dirname));
+// On Vercel, express.static() is ignored — static assets must live in
+// public/** and are served by the CDN. Keep this pointing at public/ so
+// local development (node server.js) behaves the same way.
+app.use(express.static(path.join(__dirname, 'public')));
 
 // ============================================================
 // GEMINI MODEL DISCOVERY
