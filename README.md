@@ -26,12 +26,15 @@ We kept our commitment to the name "Useless Projects" and designed a completely 
 
 # Screenshots (Add at least 3)
 <img width="1920" height="3351" alt="final" src="https://github.com/user-attachments/assets/ee854b03-f33a-421c-83b7-c359dcdd1827" />
+
 *The final version of the tool suite*
+
 <img width="1920" height="913" alt="index" src="https://github.com/user-attachments/assets/f49d4e7c-88a1-4c8c-97b3-0b7760bdc9f7" />
+
 *The landing page*
-<img width="1917" height="1015" alt="code" src="https://github.com/user-attachments/assets/c121b63e-2d89-4c64-a37f-a82865c84e3b" />
-*Snapshot of the code during early stage*
+
 <img width="1917" height="902" alt="stage 1" src="https://github.com/user-attachments/assets/f2a36e33-becd-4ffd-a6e6-67d9fb273ea6" />
+
 *Testing initial version on localhost*
 
 
